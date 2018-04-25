@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.dom.min.js"></script>
+<script>
+var data;
+var n;
+function preload() {
+	data = loadTable('https://raw.githubusercontent.com/auguslatorre/clase_ocho/gh-pages/data/Days.csv','csv', 'header');
+}
+function setup() {
+	console.log(data);
+	console.log(data.getRowCount() + ' son las filas en la tabla');
+	console.log(data.getColumnCount() + ' son las columnas en la tabla');
+	var canvas = createCanvas(windowWidth, windowHeight);
+	canvas.position(0,0);
+	canvas.style('z-index','-1');
+	noStroke();
+	fill(0,150);
+	textAlign(CENTER);
+	textStyle(BOLD);
+	beginShape();
+	vertex(0,height)
+   	for (var a = 0; a < data.getRowCount(); a++) {
+		var days = data.get(a, 2);
+		var posX = (windowWidth/(data.getRowCount()+1))*(a+1);
+		var posY = map(days, 0, 22, (windowHeight-50), 100);
+		vertex(posX,posY);
+   		var name = data.get(a, 1);
+   		textSize(11);
+   		text(name + '\n•',posX,posY-10);
+	}
+	vertex(width,height);
+	endShape(CLOSE);
+}
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>
